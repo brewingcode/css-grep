@@ -1,0 +1,16 @@
+{
+  "name": "css-grep",
+  "version": "1.0.0",
+  "description": "A Chrome extension to grep the page DOM with css selectors",
+  "scripts": {
+    "start": "coffee -wc grep.coffee",
+    "build": "coffee -c grep.coffee"
+  },
+  "dependencies": {
+    "coffeescript": "^2.2.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": "https://github.com/brewingcode/css-grep"
+}
