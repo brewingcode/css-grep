@@ -1,7 +1,7 @@
 {
   "name": "css-grep",
   "version": "1.0.0",
-  "description": "A Chrome extension to grep the page DOM with css selectors",
+  "description": "Greps a regex through DOM elements specified by a CSS selector",
   "scripts": {
     "start": "coffee -wbc grep.coffee",
     "build": "coffee -bc grep.coffee"
