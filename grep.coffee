@@ -17,6 +17,7 @@ holdReady:function(a){a?r.readyWait++:r.ready(!0)},ready:function(a){(a===!0?--r
 ```
 
 id = 'a368f23f8175'
+flipId = 'a368f23f8176'
 history = {}
 showing = false
 
@@ -24,6 +25,9 @@ show = ->
   $('body').append """
     <div id="#{id}" style="position:fixed;top:0;z-index:9999999999;">
       <a href="#">[x]</a>
+      <span>&nbsp;</span>
+      <input id="#{flipId}" title="Invert regex match" type="checkbox"/>
+      <label for="#{flipId}" title="Invert regex match">[!]</label>
       <span>&nbsp;</span>
       <input type="text" placeholder="selector" value="tr"/>
       <input type="text" placeholder="regex"/>
@@ -33,7 +37,7 @@ show = ->
 
   $('input[placeholder="regex"]').focus()
 
-  $("##{id} input").on 'input', $.debounce 250, ->
+  filterElements = ->
     sel = $('input[placeholder="selector"]').val()
     q = $('input[placeholder="regex"]').val()
     if sel
@@ -56,6 +60,9 @@ show = ->
   $("##{id} a").on 'click', ->
     $(this).parent().remove()
     return false
+
+  $("##{id} input").on 'input', $.debounce 250, filterElements
+  $("##{flipId}").on 'change', filterElements
 
 hide = ->
   $("##{id}").remove()
