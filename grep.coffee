@@ -39,11 +39,18 @@ show = ->
 
   filterElements = ->
     sel = $('input[placeholder="selector"]').val()
-    q = $('input[placeholder="regex"]').val()
+    regex = new RegExp $('input[placeholder="regex"]').val(), 'i'
+    matchFn = (t) ->
+      return false unless t?.match /\S/
+      m = t?.match regex
+      if $("##{flipId}").prop('checked')
+        return not m
+      else
+        return m
     if sel
       $(sel).each ->
         if q
-          if $(this).text().match new RegExp(q, 'i')
+          if matchFn $(this).text()
             $(this).css 'display', ''
           else
             $(this).css 'display', 'none'
