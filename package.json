@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Greps a regex through DOM elements specified by a CSS selector",
   "scripts": {
-    "start": "coffee -wbc grep.coffee",
-    "build": "coffee -bc grep.coffee"
+    "start": "coffee -wbc grep.coffee && jq '.manifest * {version,description}' package.json > manifest.json",
+    "build": "coffee -bc grep.coffee && jq '.manifest * {version,description}' package.json > manifest.json"
   },
   "dependencies": {
     "coffeescript": "^2.2.3"
@@ -12,5 +12,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "repository": "https://github.com/brewingcode/css-grep"
+  "repository": "https://github.com/brewingcode/css-grep",
+  "manifest": {
+    "manifest_version": 2,
+    "name": "CSS Grep",
+    "browser_action": {
+      "default_title": "CSS Grep",
+      "default_icon": "inactive.png"
+    },
+    "permissions": [
+      "activeTab"
+    ],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": true
+    }
+  }
 }
