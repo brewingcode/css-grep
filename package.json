@@ -1,6 +1,6 @@
 {
   "name": "css-grep",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Greps a regex through DOM elements specified by a CSS selector",
   "scripts": {
     "start": "coffee -wbc grep.coffee && jq '.manifest * {version,description}' package.json > manifest.json",
@@ -24,7 +24,9 @@
       "activeTab"
     ],
     "background": {
-      "scripts": ["background.js"],
+      "scripts": [
+        "background.js"
+      ],
       "persistent": true
     }
   }
