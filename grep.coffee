@@ -39,7 +39,8 @@ show = ->
 
   filterElements = ->
     sel = $('input[placeholder="selector"]').val()
-    regex = new RegExp $('input[placeholder="regex"]').val(), 'i'
+    q = $('input[placeholder="regex"]').val()
+    regex = new RegExp q, 'i'
     matchFn = (t) ->
       return false unless t?.match /\S/
       m = t?.match regex
