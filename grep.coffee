@@ -29,7 +29,7 @@ show = ->
       <input id="#{flipId}" title="Invert regex match" type="checkbox"/>
       <label for="#{flipId}" title="Invert regex match">[!]</label>
       <span>&nbsp;</span>
-      <input type="text" placeholder="selector" value="tr"/>
+      <input type="text" placeholder="selector" value="tr" placeholder="css selector"/>
       <input type="text" placeholder="regex"/>
     </div>
   """
