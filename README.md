@@ -22,3 +22,7 @@ grepping through the Starbucks hot breakfast table:
 Unpacked" and point to this repo directory
 
 3. (optional) In chrome://extensions/shortcuts, bind a keyboard shortcut
+
+## Development
+
+Run `yarn dev` to do a build, and then re-build on every change.
