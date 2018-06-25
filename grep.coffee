@@ -19,7 +19,6 @@ holdReady:function(a){a?r.readyWait++:r.ready(!0)},ready:function(a){(a===!0?--r
 id = 'a368f23f8175'
 flipId = 'a368f23f8176'
 history = {}
-showing = false
 
 show = ->
   $('body').append """
@@ -34,7 +33,6 @@ show = ->
       <input type="text" placeholder="regex"/>
     </div>
   """
-  showing = true
 
   $('input[placeholder="regex"]').focus()
 
@@ -67,7 +65,7 @@ show = ->
         delete history[sel]
 
   $("##{id} a").on 'click', ->
-    $(this).parent().remove()
+    hide()
     return false
 
   $("##{id} input").on 'input', $.debounce 250, filterElements
@@ -75,6 +73,5 @@ show = ->
 
 hide = ->
   $("##{id}").remove()
-  showing = false
-
+  chrome.extension.sendRequest 'hiding'
 show()
