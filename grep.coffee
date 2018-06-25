@@ -44,6 +44,7 @@ show = ->
   $("##{flipId}").on 'change', filterElements
 
 hide = ->
+  restoreElements()
   $("##{id}").remove()
   chrome.extension.sendRequest 'hiding'
 
@@ -62,10 +63,13 @@ filterElements = ->
       else
         $(this).css 'display', ''
   else
-    for own sel, elements of history
-      for el in elements
-        $(el).css 'display', ''
-      delete history[sel]
+    restoreElements()
+
+restoreElements = ->
+  for own sel, elements of history
+    for el in elements
+      $(el).css 'display', ''
+    delete history[sel]
 
 matchFn = (q, t) ->
   return false unless t?.match /\S/
