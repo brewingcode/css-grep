@@ -3,8 +3,8 @@
   "version": "1.1.0",
   "description": "Greps a regex through DOM elements specified by a CSS selector",
   "scripts": {
-    "dev": "coffee -wbc grep.coffee && jq '.manifest * {version,description}' package.json > manifest.json",
-    "build": "coffee -bc grep.coffee && jq '.manifest * {version,description}' package.json > manifest.json"
+    "dev": "coffee -wbc *.coffee && jq '.manifest * {version,description}' package.json > manifest.json",
+    "build": "coffee -bc *.coffee && jq '.manifest * {version,description}' package.json > manifest.json"
   },
   "dependencies": {
     "coffeescript": "^2.2.3"
