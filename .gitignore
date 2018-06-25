@@ -1,4 +1,2 @@
-grep.js
-background.js
 node_modules/
-manifest.json
+dist/
