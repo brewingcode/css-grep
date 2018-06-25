@@ -36,34 +36,6 @@ show = ->
 
   $('input[placeholder="regex"]').focus()
 
-  filterElements = ->
-    sel = $('input[placeholder="selector"]').val()
-    q = $('input[placeholder="regex"]').val()
-    regex = new RegExp q, 'i'
-    matchFn = (t) ->
-      return false unless t?.match /\S/
-      m = t?.match regex
-      if $("##{flipId}").prop('checked')
-        return not m
-      else
-        return m
-    if sel
-      $(sel).each ->
-        if q
-          if matchFn $(this).text()
-            $(this).css 'display', ''
-          else
-            $(this).css 'display', 'none'
-            history[sel] = [] unless history[sel]
-            history[sel].push this
-        else
-          $(this).css 'display', ''
-    else
-      for own sel, elements of history
-        for el in elements
-          $(el).css 'display', ''
-        delete history[sel]
-
   $("##{id} a").on 'click', ->
     hide()
     return false
@@ -74,4 +46,34 @@ show = ->
 hide = ->
   $("##{id}").remove()
   chrome.extension.sendRequest 'hiding'
+
+filterElements = ->
+  sel = $('input[placeholder="selector"]').val()
+  q = $('input[placeholder="regex"]').val()
+  if sel
+    $(sel).each ->
+      if q
+        if matchFn(q, $(this).text())
+          $(this).css 'display', ''
+        else
+          $(this).css 'display', 'none'
+          history[sel] = [] unless history[sel]
+          history[sel].push this
+      else
+        $(this).css 'display', ''
+  else
+    for own sel, elements of history
+      for el in elements
+        $(el).css 'display', ''
+      delete history[sel]
+
+matchFn = (q, t) ->
+  return false unless t?.match /\S/
+  regex = new RegExp q, 'i'
+  m = t?.match regex
+  if $("##{flipId}").prop('checked')
+    return not m
+  else
+    return m
+
 show()
