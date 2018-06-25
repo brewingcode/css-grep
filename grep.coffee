@@ -20,7 +20,7 @@ id = 'a368f23f8175'
 flipId = 'a368f23f8176'
 showCount = 'a368f23f8177'
 totalCount = 'a368f23f8178'
-history = {}
+hidden = {}
 
 show = ->
   $('body').append """
@@ -72,8 +72,8 @@ filterElements = ->
           n++
         else
           $(this).css 'display', 'none'
-          history[sel] = [] unless history[sel]
-          history[sel].push this
+          hidden[sel] = [] unless hidden[sel]
+          hidden[sel].push this
       else
         $(this).css 'display', ''
     $("##{showCount}").text(n)
@@ -81,10 +81,10 @@ filterElements = ->
     restoreElements()
 
 restoreElements = ->
-  for own sel, elements of history
+  for own sel, elements of hidden
     for el in elements
       $(el).css 'display', ''
-    delete history[sel]
+    delete hidden[sel]
   selectorCount()
 
 matchFn = (q, t) ->
