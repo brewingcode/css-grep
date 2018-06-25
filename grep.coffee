@@ -18,6 +18,8 @@ holdReady:function(a){a?r.readyWait++:r.ready(!0)},ready:function(a){(a===!0?--r
 
 id = 'a368f23f8175'
 flipId = 'a368f23f8176'
+showCount = 'a368f23f8177'
+totalCount = 'a368f23f8178'
 history = {}
 
 show = ->
@@ -29,8 +31,12 @@ show = ->
         <input id="#{flipId}" type="checkbox"/> [!]
       </label>
       <span>&nbsp;</span>
-      <input type="text" placeholder="selector" value="tr" placeholder="css selector"/>
+      <input type="text" value="tr" placeholder="css selector"/>
       <input type="text" placeholder="regex"/>
+      <span>&nbsp;</span>
+      <span id="#{showCount}"></span>
+      <span> out of </span>
+      <span id="#{totalCount}"></span>
     </div>
   """
 
@@ -40,8 +46,14 @@ show = ->
     hide()
     return false
 
-  $("##{id} input").on 'input', $.debounce 250, filterElements
+  $("##{id} input[type=\"text\"]").on 'input', $.debounce 250, filterElements
   $("##{flipId}").on 'change', filterElements
+
+  selectorCount()
+
+selectorCount = ->
+  sel = $('input[placeholder="css selector"]').val()
+  $("##{showCount}, ##{totalCount}").text($(sel).length);
 
 hide = ->
   restoreElements()
@@ -49,19 +61,22 @@ hide = ->
   chrome.extension.sendRequest 'hiding'
 
 filterElements = ->
-  sel = $('input[placeholder="selector"]').val()
+  sel = $('input[placeholder="css selector"]').val()
   q = $('input[placeholder="regex"]').val()
-  if sel
+  if sel and q
+    n = 0
     $(sel).each ->
       if q
         if matchFn(q, $(this).text())
           $(this).css 'display', ''
+          n++
         else
           $(this).css 'display', 'none'
           history[sel] = [] unless history[sel]
           history[sel].push this
       else
         $(this).css 'display', ''
+    $("##{showCount}").text(n)
   else
     restoreElements()
 
@@ -70,6 +85,7 @@ restoreElements = ->
     for el in elements
       $(el).css 'display', ''
     delete history[sel]
+  selectorCount()
 
 matchFn = (q, t) ->
   return false unless t?.match /\S/
