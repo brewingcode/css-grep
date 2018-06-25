@@ -1,6 +1,6 @@
 {
   "name": "css-grep",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Greps a regex through DOM elements specified by a CSS selector",
   "scripts": {
     "dev": "grunt dev",
