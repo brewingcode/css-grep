@@ -26,8 +26,9 @@ show = ->
     <div id="#{id}" style="position:fixed;top:0;z-index:9999999999;">
       <a href="#">[x]</a>
       <span>&nbsp;</span>
-      <input id="#{flipId}" title="Invert regex match" type="checkbox"/>
-      <label for="#{flipId}" title="Invert regex match">[!]</label>
+      <label title="Invert regex match">
+        <input id="#{flipId}" type="checkbox"/> [!]
+      </label>
       <span>&nbsp;</span>
       <input type="text" placeholder="selector" value="tr" placeholder="css selector"/>
       <input type="text" placeholder="regex"/>
