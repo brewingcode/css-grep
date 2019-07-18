@@ -7,11 +7,12 @@ chrome.tabs.onActivated.addListener (obj) ->
   chrome.browserAction.setIcon path: if tabs[id].showing then 'active.png' else 'inactive.png'
 
 chrome.tabs.onUpdated.addListener (tabId, changeInfo, tab) ->
-  if changeInfo and changeInfo.status is 'loading'
+  if tabs[tabId] and changeInfo and changeInfo.status is 'loading'
     tabs[tabId].showing = false
     chrome.browserAction.setIcon path: 'inactive.png'
 
 chrome.browserAction.onClicked.addListener (tab) ->
+  return unless tabs[tab.id]
   if tabs[tab.id].showing
     chrome.browserAction.setIcon path: 'inactive.png'
     chrome.tabs.executeScript tab.id, code: 'hide()'
